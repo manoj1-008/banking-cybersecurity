@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cyber Bank Registration</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-image: url('1619052.jpg'); /* Use the moved image */
+            background-size: cover;
+            display: flex;
+            justify-content: center; /* Center the form */
+            align-items: center;
+            height: 100vh;
+            color: white;
+        }
+        .register-container {
+            background-color: rgba(0, 0, 0, 0.8);
+            padding: 3rem; /* Increased padding for more space */
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            max-width: 600px; /* Increased max width for more space */
+            width: 100%;
+            text-align: center;
+        }
+        .input-group {
+            position: relative;
+            margin-bottom: 2rem; /* Increased margin for better spacing */
+        }
+        .input-group input {
+            width: calc(100% - 40px); /* Adjust width to fit better */
+            padding: 12px 20px; /* Increased padding */
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #333;
+            color: white;
+        }
+        .input-group i {
+            position: absolute;
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #ccc;
+        }
+        .register-btn {
+            background-color: #007bff;
+            color: white;
+            padding: 15px; /* Increased padding for the button */
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 1.2rem; /* Increased font size for the button */
+            transition: background-color 0.3s;
+        }
+        .register-btn:hover {
+            background-color: #0056b3;
+        }
+        h2 {
+            margin-bottom: 1.5rem;
+            font-size: 2.5rem; /* Increased font size for the heading */
+        }
+        .security-questions {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr); /* 4 columns */
+            gap: 10px;
+            margin-top: 20px;
+            text-align: left;
+        }
+        .security-questions label {
+            display: block;
+            color: #ccc;
+            font-size: 1rem; /* Increase font size for labels */
+        }
+    </style>
+    <script>
+        function submitRegistration(event) {
+            event.preventDefault();
+            const username = document.getElementById('new-username').value;
+            const password = document.getElementById('new-password').value;
+
+            fetch('register.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ username, password })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert('Registration successful! You can now log in.');
+                    window.location.href = 'login.html'; // Redirect to login page
+                } else {
+                    alert(data.message);
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        }
+    </script>
+</head>
+<body>
+    <div class="register-container">
+        <h2 class="text-3xl font-extrabold">Register for Cyber Bank</h2>
+        <form onsubmit="submitRegistration(event)">
+            <div class="input-group">
+                <i class="fas fa-user"></i>
+                <input id="new-username" name="new-username" placeholder="Enter your username" type="text" required>
+            </div>
+            <div class="input-group">
+                <i class="fas fa-lock"></i>
+                <input id="new-password" name="new-password" placeholder="Enter your password" type="password" required>
+            </div>
+            <div class="input-group security-questions">
+                <label>Security Questions:</label>
+                <label>What is your mother's maiden name?
+                    <input type="text" name="security-answer-1" placeholder="Your answer" required>
+                </label>
+                <label>What was the name of your first pet?
+                    <input type="text" name="security-answer-2" placeholder="Your answer" required>
+                </label>
+                <label>What is your favorite book?
+                    <input type="text" name="security-answer-3" placeholder="Your answer" required>
+                </label>
+                <label>What city were you born in?
+                    <input type="text" name="security-answer-4" placeholder="Your answer" required>
+                </label>
+                <label>What is your favorite color?
+                    <input type="text" name="security-answer-5" placeholder="Your answer" required>
+                </label>
+                <label>What was your childhood nickname?
+                    <input type="text" name="security-answer-6" placeholder="Your answer" required>
+                </label>
+                <label>What is the name of your favorite teacher?
+                    <input type="text" name="security-answer-7" placeholder="Your answer" required>
+                </label>
+                <label>What is your dream job?
+                    <input type="text" name="security-answer-8" placeholder="Your answer" required>
+                </label>
+                <label>What is your favorite food?
+                    <input type="text" name="security-answer-9" placeholder="Your answer" required>
+                </label>
+                <label>What is your favorite movie?
+                    <input type="text" name="security-answer-10" placeholder="Your answer" required>
+                </label>
+            </div>
+            <button class="register-btn" type="submit">Register</button>
+        </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cyber Bank Login</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-image: url('1619052.jpg'); /* Use the moved image */
+            background-size: cover;
+            display: flex;
+            justify-content: center; /* Center the form */
+            align-items: center;
+            height: 100vh;
+            color: white;
+        }
+        .login-container {
+            background-color: rgba(0, 0, 0, 0.8);
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            max-width: 400px;
+            width: 100%;
+            text-align: center;
+            position: relative; /* For positioning the logo */
+        }
+        .input-group {
+            position: relative;
+            margin-bottom: 1.5rem;
+        }
+        .input-group input, .input-group select {
+            width: calc(100% - 40px); /* Adjust width to fit better */
+            padding: 10px 20px; /* Adjust padding */
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #333;
+            color: white;
+        }
+        .input-group i {
+            position: absolute;
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #ccc;
+        }
+        .login-btn {
+            background-color: #007bff;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            transition: background-color 0.3s;
+        }
+        .login-btn:hover {
+            background-color: #0056b3;
+        }
+        h2 {
+            margin-bottom: 1rem;
+        }
+        .welcome-text {
+            margin-top: 1rem;
+            font-size: 0.9rem;
+        }
+        #time {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 1.2rem;
+            color: white;
+        }
+        .bank-details {
+            margin-top: 20px;
+            font-size: 0.9rem;
+            color: #ccc;
+            text-align: left; /* Align text to the left */
+        }
+        .logo {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 60px; /* Adjust size as needed */
+            height: 60px; /* Adjust size as needed */
+            border-radius: 50%; /* Make it round */
+            overflow: hidden; /* Ensure the image fits within the circle */
+        }
+        .logo img {
+            width: 100%;
+            height: auto;
+        }
+    </style>
+    <script>
+        function updateTime() {
+            const now = new Date();
+            const timeString = now.toLocaleTimeString();
+            const dateString = now.toLocaleDateString();
+            document.getElementById('time').innerText = `${timeString} - ${dateString}`;
+        }
+        setInterval(updateTime, 1000);
+
+        function submitLogin(event) {
+            event.preventDefault();
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            fetch('login.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ username, password })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    window.location.href = 'dashboard.html'; // Redirect to dashboard on success
+                } else {
+                    alert(data.message);
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        }
+    </script>
+</head>
+<body>
+    <div id="time"></div>
+    <div class="login-container">
+        <h2 class="text-3xl font-extrabold">Cyber Bank</h2>
+        <form onsubmit="submitLogin(event)">
+            <div class="input-group">
+                <i class="fas fa-user"></i>
+                <input class="w-full" id="username" name="username" placeholder="Enter your username" type="text" required>
+            </div>
+            <div class="input-group">
+                <i class="fas fa-lock"></i>
+                <input class="w-full" id="password" name="password" placeholder="Enter your password" type="password" required>
+            </div>
+            <button class="login-btn" type="submit">Login</button>
+            <p class="welcome-text">Don't have an account? <a href="register.html" class="text-blue-400 hover:underline">Register</a></p>
+        </form>
+        <p class="bank-details">At Cyber Bank, we cherish your trust and prioritize your security. Join us in a journey of financial empowerment! We offer a range of services including savings accounts, loans, and investment opportunities tailored to meet your financial needs. Our commitment to security ensures that your information is protected at all times.</p>
+        <p class="bank-details">For more details about our services, <a href="bank_details.html" class="text-blue-400 hover:underline">click here</a>.</p>
+        <div class="logo">
+            <img src="C:/Users/pavan/Downloads/shield-keyhole-blue-cyber-security-logo-Graphics-20359585-1.jpg" alt="Cybersecurity Logo"> <!-- Updated logo path -->
+        </div>
+    </div>
+</body>
+</html>
